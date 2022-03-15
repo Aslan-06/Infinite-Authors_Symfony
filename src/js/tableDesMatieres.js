@@ -1,10 +1,15 @@
+// Pour chaque bouton de creation d'une sous section, ajoutons un listener de click
 $('.newSousSection').click(function(event){
-    event.preventDefault()
+    event.preventDefault() // cette fonction sert a ne pas rafraichir la page, et donc rester là où on en est
     
+    //On essaye de trouver une formulaire par son id, si on le trouve, on ne recrée pas une autre
     if(!$('#titreNewSection').length){
         let niveauNewSection = getNiveau($(this).parent().find("h4")) + 1
         let dernierSectionMemeNiveau = $(this).parent()
         
+        /* On a le niveau de nouvelle sous section, donc on cherche une section qui a un niveau inférieur, pour placer la nouvelle sous section
+        *  avant lui
+        */
         do{
             dernierSectionMemeNiveau = dernierSectionMemeNiveau.next()
         }
@@ -23,6 +28,7 @@ $('.newSousSection').click(function(event){
         //Pour le bouton de validation de creation de section, nous allons anvoyer une requete en ajax
         $('#validateCreationBtn').click(function(event){
             event.preventDefault()
+            console.log()
         })
 
     }
