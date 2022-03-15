@@ -127,11 +127,19 @@ header{
     border:1px grey solid;
     border-radius: 3px;
 }
-#validerSectionBtn{
-    width:30px;
+.btnCreationSection{
+    width: 30px;
+    height: 30px;
+    background: none;
     margin-left:15px;
     margin-bottom: 5px;
     vertical-align: middle;
+    cursor:pointer;
+    padding:0;
+    border: 0;
+}
+.iconsCreationSection{
+    width:30px;
 }
 
 /***  CONTENU  DE  LIVRE  ***/

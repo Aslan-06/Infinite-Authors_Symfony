@@ -13,6 +13,18 @@ $('.newSousSection').click(function(event){
         $(newTitreFormulaire()).insertBefore(dernierSectionMemeNiveau)
         $('#newSectionForm').css({"margin-left" : niveauNewSection * 50 + "px"})
         $('#titreNewSection').focus()
+
+        //Pour le bouton annuler, on enleve la formulaire de creation de section
+        $('#cancelCreationBtn').click(function(event){
+            event.preventDefault()
+            $('#newSectionForm').remove()
+        })
+
+        //Pour le bouton de validation de creation de section, nous allons anvoyer une requete en ajax
+        $('#validateCreationBtn').click(function(event){
+            event.preventDefault()
+        })
+
     }
 })
 $('#newSection').click(function(event){
@@ -26,7 +38,8 @@ function newTitreFormulaire(){
     return   '<form id="newSectionForm" action="">'
             +    '<label id="labelNewSectionForm" for="titre">Section : </label>'
             +    '<input id="titreNewSection" type="text" name="titre">'
-            +    '<input id="validerSectionBtn" type="image" src="/InfiniteAuthors/src/img/mark.png" border="0" alt="Valider">'
+            +    '<button id="validateCreationBtn" class="btnCreationSection"><img class="iconsCreationSection" src="/InfiniteAuthors/src/img/mark.png" value="" alt="Valider"></button>'
+            +    '<button id="cancelCreationBtn" class="btnCreationSection"><img class="iconsCreationSection" src="/InfiniteAuthors/src/img/cancel.png" value="" alt="Annuler"></button>'
             +'</form>'
 }
 
