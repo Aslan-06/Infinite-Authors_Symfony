@@ -19,27 +19,36 @@ $('.newSousSection').click(function(event){
         $('#newSectionForm').css({"margin-left" : niveauNewSection * 50 + "px"})
         $('#titreNewSection').focus()
 
-        //Pour le bouton annuler, on enleve la formulaire de creation de section
-        $('#cancelCreationBtn').click(function(event){
-            event.preventDefault()
-            $('#newSectionForm').remove()
-        })
-
-        //Pour le bouton de validation de creation de section, nous allons anvoyer une requete en ajax
-        $('#validateCreationBtn').click(function(event){
-            event.preventDefault()
-            console.log()
-        })
-
+        initListenersCreationSection()
     }
 })
+// Pour la creation d'une section c'est la formulaire on peut afficher directement
 $('#newSection').click(function(event){
     event.preventDefault()
     if(!$('#titreNewSection').length){
         $(newTitreFormulaire()).insertBefore($(this).parent())
         $('#titreNewSection').focus()
+
+        initListenersCreationSection()
     }
 })
+
+function initListenersCreationSection(){
+ //Pour le bouton annuler, on enleve la formulaire de creation de section
+ $('#cancelCreationBtn').click(function(event){
+    event.preventDefault()
+    $('#newSectionForm').remove()
+})
+
+//Pour le bouton de validation de creation de section, nous allons anvoyer une requete en ajax
+$('#validateCreationBtn').click(function(event){
+    event.preventDefault()
+
+    //Nous allons recuperer l'element précédent de la formaulaire afin de mettre aprés lui, la nouvelle sous section
+    console.log($('#newSectionForm').prev())
+})
+}
+
 function newTitreFormulaire(){
     return   '<form id="newSectionForm" action="">'
             +    '<label id="labelNewSectionForm" for="titre">Section : </label>'
