@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Livre;
 use App\Entity\Section;
+use App\Entity\Texte;
 
 class SiteController extends AbstractController
 {
@@ -29,7 +30,7 @@ class SiteController extends AbstractController
         ]);
     }
 
-    #[Route('livres/{livreId}', name: 'livre')]
+    #[Route('livres/{livreId}', name: 'tableDesMatieres')]
     public function tableDesMatieres(ManagerRegistry $doctrine, $livreId): Response{
         $sections = $doctrine->getRepository(Section::class)->findBy(array("idlivre" => $livreId), array("numsequence" => "asc"));
 
@@ -57,6 +58,16 @@ class SiteController extends AbstractController
         
         return $this->render('livre/tableDesMatieres.html.twig', [
             'sections' => $sections
+        ]);
+    }
+
+    #[Route('livres/{idLivre}/{idSection}', name: 'page')]
+    public function page(ManagerRegistry $doctrine, $idLivre, $idSection): Response{
+
+        $contenu = $doctrine->getRepository(Texte::class)->find($idSection);
+
+        return $this->render('livre/page.html.twig', [
+            'contenu' => $contenu,
         ]);
     }
     

@@ -6,7 +6,9 @@
         <h1>Table des matières</h1>
         {% for section in sections %}
             <div class="section">
-                <h4 class="titreSection niveau{{section.niveau - 1}}">{{section.titre}}</h4>
+                <a href="{{ path('page', {'idLivre':section.idLivre, 'idSection': section.id}) }}">
+                    <h4 class="titreSection niveau{{section.niveau - 1}}">{{section.titre}}</h4>
+                </a>
                 <a class="newSousSection" href="">
                     <img class="newSousSectionIcon" src="/InfiniteAuthors/src/img/plusIcon.png">
                     <span class="ssectionIconSpan">Sous-section</span>
