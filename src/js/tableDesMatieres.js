@@ -13,9 +13,10 @@ $('.newSousSection').click(function(event){
         do{
             dernierSectionMemeNiveau = dernierSectionMemeNiveau.next()
         }
-        while(dernierSectionMemeNiveau.hasClass("section") && getNiveau(dernierSectionMemeNiveau.find("h4")) >= niveauNewSection);
+        while(dernierSectionMemeNiveau.hasClass("section") && getNiveau(dernierSectionMemeNiveau.find("h4")) != 0 &&  getNiveau(dernierSectionMemeNiveau.find("h4")) >= niveauNewSection);
 
         $(newTitreFormulaire()).insertBefore(dernierSectionMemeNiveau)
+        $('#newSectionForm').addClass("niveau" + niveauNewSection)
         $('#newSectionForm').css({"margin-left" : niveauNewSection * 50 + "px"})
         $('#titreNewSection').focus()
 
@@ -27,6 +28,7 @@ $('#newSection').click(function(event){
     event.preventDefault()
     if(!$('#titreNewSection').length){
         $(newTitreFormulaire()).insertBefore($(this).parent())
+        $('#newSectionForm').addClass("niveau" + 0)
         $('#titreNewSection').focus()
 
         initListenersCreationSection()
@@ -34,23 +36,37 @@ $('#newSection').click(function(event){
 })
 
 function initListenersCreationSection(){
- //Pour le bouton annuler, on enleve la formulaire de creation de section
- $('#cancelCreationBtn').click(function(event){
-    event.preventDefault()
-    $('#newSectionForm').remove()
-})
+    //Pour le bouton annuler, on enleve la formulaire de creation de section
+    $('#cancelCreationBtn').click(function(event){
+        event.preventDefault()
+        $('#newSectionForm').remove()
+    })
 
-//Pour le bouton de validation de creation de section, nous allons anvoyer une requete en ajax
-$('#validateCreationBtn').click(function(event){
-    event.preventDefault()
+    //Pour le bouton de validation de creation de section, nous allons anvoyer une requete en ajax
+    $('#validateCreationBtn').click(function(event){
+        event.preventDefault()
 
-    //Nous allons recuperer l'element précédent de la formaulaire afin de mettre aprés lui, la nouvelle sous section
-    console.log($('#newSectionForm').prev())
-})
+        //Nous allons recuperer l'element précédent de la formaulaire afin de mettre aprés lui, la nouvelle section
+        let elementSupANouveau = $('#newSectionForm').prev()
+        //Recuperons l'indice de la formulaire dans son parent, en gros nous remplacerons la formulaire par la nouvelle section
+
+        let titreSection = $('#titreNewSection').val();
+        let numSequence = $('#newSectionForm').index()
+        let niveau = parseInt($('#newSectionForm').attr('class').match(/\d+/)[0]) + 1
+
+        $('#newSectionForm').remove()
+
+        $.ajax({
+            method: "POST",
+            data: {titreSection: titreSection, numSequence: numSequence, niveau: niveau}
+        }).done(function(data){
+            location.reload()
+        });
+    })
 }
 
 function newTitreFormulaire(){
-    return   '<form id="newSectionForm" action="">'
+    return   '<form id="newSectionForm">'
             +    '<label id="labelNewSectionForm" for="titre">Section : </label>'
             +    '<input id="titreNewSection" type="text" name="titre">'
             +    '<button id="validateCreationBtn" class="btnCreationSection"><img class="iconsCreationSection" src="/InfiniteAuthors/src/img/mark.png" value="" alt="Valider"></button>'

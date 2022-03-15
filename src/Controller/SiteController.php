@@ -31,33 +31,33 @@ class SiteController extends AbstractController
 
     #[Route('livres/{livreId}', name: 'livre')]
     public function tableDesMatieres(ManagerRegistry $doctrine, $livreId): Response{
-        
         $sections = $doctrine->getRepository(Section::class)->findBy(array("idlivre" => $livreId), array("numsequence" => "asc"));
 
+        //POST n'est pas vide si cette fonction sera executé par en ajax en cas de creation d'une section
+        if(!empty($_POST)){
+            extract($_POST);
+
+            //Augmentation de 1 de numDeSequence de ceux qui doivent etre apres la nouvelle section
+            $sections = $doctrine->getRepository(Section::class)->findBy(array("idlivre" => $livreId), array("numsequence" => "asc"), 500, $numSequence - 1);
+            foreach($sections as $section){
+                $section->setNumsequence($section->getNumsequence() + 1);
+            }
+
+            $entityManager = $doctrine->getManager();
+
+            $section = new Section();
+            $section->setTitre($titreSection);
+            $section->setNumsequence($numSequence);
+            $section->setNiveau($niveau);
+            $section->setIdlivre($livreId);
+            
+            $entityManager->persist($section);
+            $entityManager->flush();
+        }
+        
         return $this->render('livre/tableDesMatieres.html.twig', [
             'sections' => $sections
         ]);
-    }
-
-    #[Route('livres/{livreId}/new-section/{titre}', name:'new-section')]
-    public function creerSection(ManagerRegistry $doctrine, $livreId, $titre): Response{
-        $sectionRepository = $doctrine->getRepository(Section::class);
-        $section = new Section();
-        $section->setTitre($titre);
-        $section->setNumSequence($sectionRepository->count() + 1);
-        $section->setIdLivre($livreId);
-
-        
-        return $this->json(['message'=> 'Ca marche bien'], 200);
-    }
-    #[Route('livres/{livreId}/new-section/{idSession}/{titre}', name:'new-section')]
-    public function creerSousSection(ManagerRegistry $doctrine, $livreId, $idSession, $titre): Response{
-        $sectionRepository = $doctrine->getRepository(Section::class);
-        $section = new Section();
-        $section->setTitre($titre);
-        $section->setNumSequence($sectionRepository->count() + 1);
-        $section->setIdLivre($livreId);
-        return $this->json(['message'=> 'Ca marche bien'], 200);
     }
     
 }

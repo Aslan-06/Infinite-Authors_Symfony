@@ -6,7 +6,7 @@
         <h1>Table des matières</h1>
         {% for section in sections %}
             <div class="section">
-                <h4 class="titreSection nbtab{{section.niveau - 1}}">{{section.titre}}</h4>
+                <h4 class="titreSection niveau{{section.niveau - 1}}">{{section.titre}}</h4>
                 <a class="newSousSection" href="">
                     <img class="newSousSectionIcon" src="/InfiniteAuthors/src/img/plusIcon.png">
                     <span class="ssectionIconSpan">Sous-section</span>
@@ -24,7 +24,6 @@
     </div>
 
     {% block javascripts %}
-        <script></script>
         <script type="text/javascript" src="/InfiniteAuthors/src/js/tableDesMatieres.js"></script>
     {% endblock %}
 
