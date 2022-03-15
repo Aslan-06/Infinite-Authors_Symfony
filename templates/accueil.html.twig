@@ -9,13 +9,13 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Hello {{ controller_name }}! ✅✅✅</h1>
 
     This friendly message is coming from:
     <ul>
         <li>Your controller at <code><a href="{{ 'C:/OpenServer/domains/localhost/Infinite Authors/src/Controller/Controller.php'|file_link(0) }}">src/Controller/Controller.php</a></code></li>
         <li>Your template at <code><a href="{{ 'C:/OpenServer/domains/localhost/Infinite Authors/templates//index.html.twig'|file_link(0) }}">templates//index.html.twig</a></code></li>
-        <a href="index.php/tableDeMatiere">go to hello world</a>
+        <a href={{path("livres")}}>Livres</a>
     </ul>
 </div>
 {% endblock %}

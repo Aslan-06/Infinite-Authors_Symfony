@@ -1,0 +1,157 @@
+body{
+    margin: 0px;
+    background-color: #FEEEB1;
+}
+
+header{
+    background-color: green;
+    margin: 0px 10px;
+    padding: 30px;
+    border-radius: 0px 0px 30px 30px; /* top right bottom left */
+}
+
+
+/***  LISTE  DES  LIVRES  ***/
+#livresSection{
+    max-width: 1140px;
+    margin: 50px auto;
+    padding: 0px 0px 50px 45px; 
+    background-color: wheat;
+}
+.livre{
+    display: inline-block;
+    margin: 50px 40px 0px 0px;
+    width:240px;
+    height:360px;
+    background-color: antiquewhite;
+    border:1px lightgray solid;
+    border-radius: 10px;
+    text-align: center;
+}
+.livreImage{
+    width: 208px;
+    height: 280px;
+    margin:15px;
+}
+.livresTitres{
+    margin:0;
+    width:max-content;
+}
+.livresTitresLiens{
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+}
+
+
+/***  TABLE  DES  MATIERES  ***/
+#tableDesMatieres{
+    max-width: 1140px;
+    margin: 50px auto;
+    padding: 0px 50px 50px 50px; 
+    background-color: wheat;
+}
+.section{
+    margin: 10px 0px;
+    padding: 5px;
+}
+.section:hover{
+    border: 1px gray solid;
+    padding: 4px;
+}
+.titreSection{
+    width: max-content;
+    margin: 3px 50px 0px 0px;
+    float: left;
+}
+.tirets{
+    margin: 13px 0px;
+    min-width: 1px;
+    border-bottom: 1px black dashed;
+    overflow: auto;
+    opacity: 0.5;
+}
+.newSousSection{
+    text-decoration: none;
+    padding:5px 5px 1px 5px;
+    margin-left: 50px;
+    background-color: #FEEEB1;
+    border-radius: 5px;
+    float: right;
+}
+.ssectionIconSpan{
+    vertical-align: top;
+}
+.newSousSectionIcon{
+    width:16px;
+    height:16px;
+    margin-top: 1px;
+}
+
+#creationSection{
+    margin: 30px 0px;
+    overflow: auto;
+}
+#creationSectionTitre{
+    display: inline-block;
+    margin: 0;
+}
+#newSection{
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    padding: 5px 10px 6px 10px;
+    margin-left: 25px;
+    border-radius: 5px;
+    background-color: #FEEEB1;
+}
+#newSectionIcon{
+    width:20px;
+    height:20px;
+    vertical-align: bottom;
+}
+.sectionIconSpan{
+    margin-left: 10px;
+}
+
+#newSectionForm{
+    padding:5px;
+}
+#labelNewSectionForm{
+    font-weight: bold;
+    color:#444;
+}
+#titreNewSection{
+    margin-top: 5px;
+    background-color: rgba(0,0,0,0.0);
+    border:1px grey solid;
+    border-radius: 3px;
+}
+#validerSectionBtn{
+    width:30px;
+    margin-left:15px;
+    margin-bottom: 5px;
+    vertical-align: middle;
+}
+
+/***  CONTENU  DE  LIVRE  ***/
+#gestionLivre{
+    max-width:1198px;
+    height:1200px;
+    margin:50px auto;
+}
+#pageContenu{
+    width: 800px;
+    height: 100%;
+    margin-right:45px;
+    padding:25px;
+    display: inline-block;
+    background-color: wheat;
+}
+
+#options{
+    width: 298px;
+    height: 100%;
+    float: right;
+    background-color: goldenrod;
+}
