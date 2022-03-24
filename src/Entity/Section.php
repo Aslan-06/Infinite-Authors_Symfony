@@ -31,16 +31,16 @@ class Section
     /**
      * @var int
      *
-     * @ORM\Column(name="numSequence", type="integer", nullable=false, options={"default"="1"})
+     * @ORM\Column(name="numSequence", type="integer", nullable=false)
      */
-    private $numsequence = 1;
+    private $numsequence;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="niveau", type="integer", nullable=false)
+     * @ORM\Column(name="niveau", type="integer", nullable=false, options={"default"="1"})
      */
-    private $niveau;
+    private $niveau = 1;
 
     /**
      * @var int

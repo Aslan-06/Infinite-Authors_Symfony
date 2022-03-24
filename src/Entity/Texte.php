@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Section;
 
 /**
  * Texte
@@ -27,34 +28,6 @@ class Texte
      * @ORM\Column(name="contenu", type="text", length=65535, nullable=false)
      */
     private $contenu;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="posX", type="integer", nullable=false)
-     */
-    private $posx;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="posY", type="integer", nullable=false)
-     */
-    private $posy;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="largeur", type="integer", nullable=false)
-     */
-    private $largeur;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="hauteur", type="integer", nullable=false)
-     */
-    private $hauteur;
 
     /**
      * @var \Section
@@ -83,55 +56,7 @@ class Texte
         return $this;
     }
 
-    public function getPosx(): ?int
-    {
-        return $this->posx;
-    }
-
-    public function setPosx(int $posx): self
-    {
-        $this->posx = $posx;
-
-        return $this;
-    }
-
-    public function getPosy(): ?int
-    {
-        return $this->posy;
-    }
-
-    public function setPosy(int $posy): self
-    {
-        $this->posy = $posy;
-
-        return $this;
-    }
-
-    public function getLargeur(): ?int
-    {
-        return $this->largeur;
-    }
-
-    public function setLargeur(int $largeur): self
-    {
-        $this->largeur = $largeur;
-
-        return $this;
-    }
-
-    public function getHauteur(): ?int
-    {
-        return $this->hauteur;
-    }
-
-    public function setHauteur(int $hauteur): self
-    {
-        $this->hauteur = $hauteur;
-
-        return $this;
-    }
-
-    public function getIdsection(): ?Section
+    public function getIdsection()
     {
         return $this->idsection;
     }

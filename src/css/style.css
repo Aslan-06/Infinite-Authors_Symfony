@@ -64,11 +64,13 @@ header{
 }
 .section{
     margin: 10px 0px;
-    padding: 5px;
+    padding: 5px 5px 3px 5px;
 }
 .section:hover{
-    border: 1px gray solid;
-    padding: 4px;
+    border: 1px rgba(30,30,30,0.2) solid;
+    border-radius: 8px;
+    background-color: #EACF9D;
+    padding: 4px 4px 2px 4px;
 }
 .titreSection{
     width: max-content;
@@ -155,22 +157,17 @@ header{
 
 /***  CONTENU  DE  LIVRE  ***/
 #gestionLivre{
-    max-width:1198px;
+    max-width:max-content;
     height:1200px;
     margin:50px auto;
+    margin-bottom: 50px;
+    padding-bottom: 30px;
 }
 #pageContenu{
     width: 800px;
     height: 100%;
-    margin-right:45px;
+    margin-bottom:30px;
     padding:25px;
     display: inline-block;
     background-color: wheat;
-}
-
-#options{
-    width: 298px;
-    height: 100%;
-    float: right;
-    background-color: goldenrod;
 }

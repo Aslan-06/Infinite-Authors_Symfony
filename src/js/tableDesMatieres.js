@@ -1,6 +1,10 @@
 // Pour chaque bouton de creation d'une sous section, ajoutons un listener de click
 $('.newSousSection').click(function(event){
     event.preventDefault() // cette fonction sert a ne pas rafraichir la page, et donc rester là où on en est
+
+    //Si le message indiquant qu'on a atteint le niveau maximum des sous sections, on l'enleve
+    if($('#msgMaxNiveau').length)
+        $('#msgMaxNiveau').remove()
     
     //On essaye de trouver une formulaire par son id, si on le trouve, on ne recrée pas une autre
     if(!$('#titreNewSection').length){
@@ -15,12 +19,30 @@ $('.newSousSection').click(function(event){
         }
         while(dernierSectionMemeNiveau.hasClass("section") && getNiveau(dernierSectionMemeNiveau.find("h4")) != 0 &&  getNiveau(dernierSectionMemeNiveau.find("h4")) >= niveauNewSection);
 
-        $(newTitreFormulaire()).insertBefore(dernierSectionMemeNiveau)
-        $('#newSectionForm').addClass("niveau" + niveauNewSection)
-        $('#newSectionForm').css({"margin-left" : niveauNewSection * 50 + "px"})
-        $('#titreNewSection').focus()
+        if(niveauNewSection < 5){
+            $(newTitreFormulaire()).insertBefore(dernierSectionMemeNiveau)
+            $('#newSectionForm').addClass("niveau" + niveauNewSection)
+            $('#newSectionForm').css({"margin-left" : niveauNewSection * 50 + "px"})
+            $('#titreNewSection').focus()
 
-        initListenersCreationSection()
+            initListenersCreationSection()
+        }
+        else{
+            // niveau de sous section trés élèvé, donc pas de creation, et affichons une alerte
+            $('<div id="msgMaxNiveau">Vous etez atteint au niveau maximum des sous sections</div>').insertBefore(dernierSectionMemeNiveau)
+            $('#msgMaxNiveau').css({"margin-left" : niveauNewSection * 50 + "px",
+                                    "width" : "max-content",
+                                    "padding" : "7px",
+                                    "font-size" : "13px",
+                                    "background-color":"#FFA8AC",
+                                    "color":"#842034",
+                                    "border" : "1px #FD7071 solid",
+                                    "border-radius" : "5px"
+                                    })
+            $('#msgMaxNiveau').click(function(){
+                $(this).remove()
+            })
+        }
     }
 })
 // Pour la creation d'une section c'est la formulaire on peut afficher directement

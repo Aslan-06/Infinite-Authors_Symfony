@@ -4,15 +4,12 @@
 
     <section id="gestionLivre">
         <div id="pageContenu">
-            
-        </div>
-        <div id="options">
-
+            {{ form(formContenuPage) }}
         </div>
     </section>
 
     {% block javascripts %}
-        <script type="text/javascript" src="/InfiniteAuthors/src/js/livre.js"></script>
+        <script type="text/javascript" src="/InfiniteAuthors/src/js/page.js"></script>
     {% endblock %}
 
 {% endblock %}

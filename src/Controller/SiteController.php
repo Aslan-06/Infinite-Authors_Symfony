@@ -9,6 +9,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Livre;
 use App\Entity\Section;
 use App\Entity\Texte;
+use App\Form\ContenuPageFormType; 
 
 class SiteController extends AbstractController
 {
@@ -34,7 +35,7 @@ class SiteController extends AbstractController
     public function tableDesMatieres(ManagerRegistry $doctrine, $livreId): Response{
         $sections = $doctrine->getRepository(Section::class)->findBy(array("idlivre" => $livreId), array("numsequence" => "asc"));
 
-        //POST n'est pas vide si cette fonction sera executé par en ajax en cas de creation d'une section
+        //POST n'est pas vide si cette fonction sera executé par mode en ajax en cas de creation d'une section
         if(!empty($_POST)){
             extract($_POST);
 
@@ -66,8 +67,12 @@ class SiteController extends AbstractController
 
         $contenu = $doctrine->getRepository(Texte::class)->find($idSection);
 
+        $contenuPage = new Texte();
+        $formContenuPage = $this->createForm(ContenuPageFormType::class, $contenuPage);
+
         return $this->render('livre/page.html.twig', [
             'contenu' => $contenu,
+            'formContenuPage' => $formContenuPage->createView()
         ]);
     }
     

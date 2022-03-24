@@ -39,10 +39,6 @@ CREATE TABLE Texte(
         id           int (11) Auto_increment  NOT NULL ,
         contenu      Text NOT NULL ,
         idSection   Int NOT NULL ,
-        posX        Int NOT NULL ,
-        posY        Int NOT NULL ,
-        largeur     Int NOT NULL ,
-        hauteur     Int NOT NULL ,
         PRIMARY KEY (id )
 )ENGINE=InnoDB;
 
