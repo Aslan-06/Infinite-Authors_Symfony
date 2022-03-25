@@ -4,7 +4,7 @@ namespace App\Form;
 
 use App\Entity\Texte;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,8 +13,7 @@ class ContenuPageFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('contenu', TextType::class)
-        ;
+            ->add('contenu', CKEditorType::class, array('label' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver): void

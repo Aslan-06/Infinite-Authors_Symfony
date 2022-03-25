@@ -3,6 +3,12 @@
 {% block body %}
 
     <section id="gestionLivre">
+        {% for section in sectionsRoute %}
+            <h5 class="sectionRoute niveau{{loop.index0}}">{{section}}</h5>
+        {% endfor %}
+        <div>
+            <a id="premierRetourAuMatieres" href="{{ path('tableDesMatieres', {'idLivre':idLivre}) }}">Table des matières</a>
+        </div>
         <div id="pageContenu">
             {{ form(formContenuPage) }}
         </div>

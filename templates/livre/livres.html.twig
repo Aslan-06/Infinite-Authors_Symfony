@@ -7,7 +7,7 @@
             <div class="livre">
                 {#<img class="livreImage" src="../../src/img/{{livre.image}}" alt="Image de livre">    Les images telecharge dans le dossier img#}
                 <img class="livreImage" src="{{livre.imagelien}}" alt="Image de livre">
-                <a class="livresTitresLiens" href="{{ path('tableDesMatieres', {'livreId':livre.id}) }}">
+                <a class="livresTitresLiens" href="{{ path('tableDesMatieres', {'idLivre':livre.id}) }}">
                     <h3 class="livresTitres">{{livre.titre}}</h3>
                 </a>
             </div>
