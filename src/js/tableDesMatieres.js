@@ -6,55 +6,59 @@ $('.newSousSection').click(function(event){
     if($('#msgMaxNiveau').length)
         $('#msgMaxNiveau').remove()
     
-    //On essaye de trouver une formulaire par son id, si on le trouve, on ne recrée pas une autre
-    if(!$('#titreNewSection').length){
-        let niveauNewSection = getNiveau($(this).parent().find("h4")) + 1
-        let dernierSectionMemeNiveau = $(this).parent()
-        
-        /* On a le niveau de nouvelle sous section, donc on cherche une section qui a un niveau inférieur, pour placer la nouvelle sous section
-        *  avant lui
-        */
-        do{
-            dernierSectionMemeNiveau = dernierSectionMemeNiveau.next()
-        }
-        while(dernierSectionMemeNiveau.hasClass("section") && getNiveau(dernierSectionMemeNiveau.find("h4")) != 0 &&  getNiveau(dernierSectionMemeNiveau.find("h4")) >= niveauNewSection);
+    //On essaye de trouver une formulaire par son id, si on le trouve, on l'enleve pour créer une autre là où il le faut
+    if($('#newSectionForm').length){
+        $('#newSectionForm').remove()
+    }
 
-        if(niveauNewSection < 5){
-            $(newTitreFormulaire()).insertBefore(dernierSectionMemeNiveau)
-            $('#newSectionForm').addClass("niveau" + niveauNewSection)
-            $('#newSectionForm').css({"margin-left" : niveauNewSection * 50 + "px"})
-            $('#titreNewSection').focus()
+    let niveauNewSection = getNiveau($(this).parent().find("h4")) + 1
+    let dernierSectionMemeNiveau = $(this).parent()
+    
+    /* On a le niveau de nouvelle sous section, donc on cherche une section qui a un niveau inférieur, pour placer la nouvelle sous section
+    *  avant lui
+    */
+    do{
+        dernierSectionMemeNiveau = dernierSectionMemeNiveau.next()
+    }
+    while(dernierSectionMemeNiveau.hasClass("section") && getNiveau(dernierSectionMemeNiveau.find("h4")) != 0 &&  getNiveau(dernierSectionMemeNiveau.find("h4")) >= niveauNewSection);
 
-            initListenersCreationSection()
-        }
-        else{
-            // niveau de sous section trés élèvé, donc pas de creation, et affichons une alerte
-            $('<div id="msgMaxNiveau">Vous etez atteint au niveau maximum des sous sections</div>').insertBefore(dernierSectionMemeNiveau)
-            $('#msgMaxNiveau').css({"margin-left" : niveauNewSection * 50 + "px",
-                                    "width" : "max-content",
-                                    "padding" : "7px",
-                                    "font-size" : "13px",
-                                    "background-color":"#FFA8AC",
-                                    "color":"#842034",
-                                    "border" : "1px #FD7071 solid",
-                                    "border-radius" : "5px"
-                                    })
-            $('#msgMaxNiveau').click(function(){
-                $(this).remove()
-            })
-        }
+    if(niveauNewSection < 5){
+        $(newTitreFormulaire()).insertBefore(dernierSectionMemeNiveau)
+        $('#newSectionForm').addClass("niveau" + niveauNewSection)
+        $('#newSectionForm').css({"margin-left" : niveauNewSection * 50 + "px"})
+        $('#titreNewSection').focus()
+
+        initListenersCreationSection()
+    }
+    else{
+        // niveau de sous section trés élèvé, donc pas de creation, et affichons une alerte
+        $('<div id="msgMaxNiveau">Vous etez atteint au niveau maximum des sous sections</div>').insertBefore(dernierSectionMemeNiveau)
+        $('#msgMaxNiveau').css({"margin-left" : niveauNewSection * 50 + "px",
+                                "width" : "max-content",
+                                "padding" : "7px",
+                                "font-size" : "13px",
+                                "background-color":"#FFA8AC",
+                                "color":"#842034",
+                                "border" : "1px #FD7071 solid",
+                                "border-radius" : "5px"
+                                })
+        $('#msgMaxNiveau').click(function(){
+            $(this).remove()
+        })
     }
 })
 // Pour la creation d'une section c'est la formulaire on peut afficher directement
 $('#newSection').click(function(event){
     event.preventDefault()
-    if(!$('#titreNewSection').length){
-        $(newTitreFormulaire()).insertBefore($(this).parent())
-        $('#newSectionForm').addClass("niveau" + 0)
-        $('#titreNewSection').focus()
-
-        initListenersCreationSection()
+    if($('#newSectionForm').length){
+        $('#newSectionForm').remove()
     }
+
+    $(newTitreFormulaire()).insertBefore($(this).parent())
+    $('#newSectionForm').addClass("niveau" + 0)
+    $('#titreNewSection').focus()
+
+    initListenersCreationSection()
 })
 
 function initListenersCreationSection(){

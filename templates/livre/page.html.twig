@@ -3,14 +3,24 @@
 {% block body %}
 
     <section id="gestionLivre">
-        {% for section in sectionsRoute %}
-            <h5 class="sectionRoute niveau{{loop.index0}}">{{section}}</h5>
-        {% endfor %}
-        <div>
-            <a id="premierRetourAuMatieres" href="{{ path('tableDesMatieres', {'idLivre':idLivre}) }}">Table des matières</a>
+        <div id="sectionCourantDiv">
+            <h5 id="sectionCourantH">Section courant</h5>
+            {% for section in sectionsRoute %}
+                <h5 class="sectionRoute niveau{{loop.index0}}">
+                    {% if not loop.first %}
+                        <span>&#10149</span> {# Symbole de fleche #}
+                    {% endif %}
+                    {{section}}
+                </h5>
+            {% endfor %}
+            <div>
+                <a id="premierRetourAuMatieres" href="{{ path('tableDesMatieres', {'idLivre':idLivre}) }}">Table des matières</a>
+            </div>
         </div>
+
         <div id="pageContenu">
             {{ form(formContenuPage) }}
+            <button>Sauvegarder</button>
         </div>
     </section>
 

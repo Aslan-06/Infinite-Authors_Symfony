@@ -3,5 +3,5 @@ $('.sectionRoute').each(function(index) {
     if(index < $('.sectionRoute').length-1)
         $(this).css({"color" : "#666666"})
     else
-        $(this).css({"color" : "black"})
+        $(this).css({"color" : "#333333"})
 });

@@ -38,23 +38,24 @@ class SiteController extends AbstractController
         //POST n'est pas vide si cette fonction sera executé par mode en ajax en cas de creation d'une section
         if(!empty($_POST)){
             extract($_POST);
+            if(!empty($titreSection)){ // Le titre de nouvel section n'est pas vide
+                //Augmentation de 1 de numDeSequence de ceux qui doivent etre apres la nouvelle section
+                $sections = $doctrine->getRepository(Section::class)->findBy(array("idlivre" => $idLivre), array("numsequence" => "asc"), 500, $numSequence - 1);
+                foreach($sections as $section){
+                    $section->setNumsequence($section->getNumsequence() + 1);
+                }
 
-            //Augmentation de 1 de numDeSequence de ceux qui doivent etre apres la nouvelle section
-            $sections = $doctrine->getRepository(Section::class)->findBy(array("idlivre" => $idLivre), array("numsequence" => "asc"), 500, $numSequence - 1);
-            foreach($sections as $section){
-                $section->setNumsequence($section->getNumsequence() + 1);
+                $entityManager = $doctrine->getManager();
+
+                $section = new Section();
+                $section->setTitre($titreSection);
+                $section->setNumsequence($numSequence);
+                $section->setNiveau($niveau);
+                $section->setIdlivre($idLivre);
+                
+                $entityManager->persist($section);
+                $entityManager->flush();
             }
-
-            $entityManager = $doctrine->getManager();
-
-            $section = new Section();
-            $section->setTitre($titreSection);
-            $section->setNumsequence($numSequence);
-            $section->setNiveau($niveau);
-            $section->setIdlivre($idLivre);
-            
-            $entityManager->persist($section);
-            $entityManager->flush();
         }
         
         return $this->render('livre/tableDesMatieres.html.twig', [
