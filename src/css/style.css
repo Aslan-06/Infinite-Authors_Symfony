@@ -70,13 +70,12 @@ header{
 }
 #inscriptionDiv{
     margin-right: 100px;
-}#inscriptionDiv h1, #connexionDiv h1{
+}#authentificationDivs div h1{
     text-align:center;
 }
-#inscription_form{
+#authentificationDivs div{
     width: max-content;
-    margin: 11px auto;
-}#inscription_form div label{
+}#authentificationDivs div label{
     display:block;
     margin-top: 10px;
 }
@@ -88,6 +87,7 @@ header{
     background-color: burlywood;
     border: 1px bisque solid;
     border-radius: 5px;
+    cursor:pointer;
 }
 
 
