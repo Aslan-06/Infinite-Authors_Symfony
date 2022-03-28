@@ -10,28 +10,47 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\VarDumper\VarDumper;
 
 class AuthentificationController extends AbstractController
 {
 
     #[Route('/inscription', name: 'inscription')]
-    #[Route('/connexion', name: 'connexion')]
-    public function inscription(ManagerRegistry $doctrine, Request $request){
+    public function inscription(ManagerRegistry $doctrine, Request $request, UserPasswordHasherInterface $passwordHasher){
         $utilisateur = new Utilisateur();
-        
+
         $manager = $doctrine->getManager();
         $formInscription = $this->createForm(InscriptionFormType::class, $utilisateur);
         $formInscription->handleRequest($request);
         if($formInscription->isSubmitted() && $formInscription->isValid()){
+            $hashedPassword = $passwordHasher->hashPassword($utilisateur, $utilisateur->getPassword());
+            $utilisateur->setPassword($hashedPassword);
+            
             $manager->persist($utilisateur);
             $manager->flush();
+
+            return $this->redirectToRoute('connexion');
         }
 
-        $formConnexion = $this->createForm(ConnexionFormType::class, $utilisateur);
-    
-        return $this->render('authentification/authentification.html.twig', [
-            'formInscription' => $formInscription->createView(),
-            'formConnexion' => $formConnexion->createView()
+        return $this->render('authentification/inscription.html.twig', [
+            'formInscription' => $formInscription->createView()
+        ]);
+    }
+
+    #[Route('/connexion', name: 'connexion')]
+    public function connexion(AuthenticationUtils $authenticationUtils){
+        // get the login error if there is one
+         $error = $authenticationUtils->getLastAuthenticationError();
+
+         // last username entered by the user
+         $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('authentification/connexion.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error
         ]);
     }
 }

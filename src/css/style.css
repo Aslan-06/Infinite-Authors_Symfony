@@ -56,26 +56,17 @@ header{
 
 
 /***  AUTHENTIFICATION  ***/
-#authentificationDivs{
-    width: max-content;
-    margin:50px auto;
-}
 #inscriptionDiv, #connexionDiv{
     max-width: max-content;
     padding:0px 50px 25px 50px;
+    margin:50px auto;
     display: inline-block;
     background-color: wheat;
     border: 1px gray solid;
     border-radius: 5px;
-}
-#inscriptionDiv{
-    margin-right: 100px;
-}#authentificationDivs div h1{
+}#inscriptionDiv div h1, #connexionDiv div h1{
     text-align:center;
-}
-#authentificationDivs div{
-    width: max-content;
-}#authentificationDivs div label{
+}#inscriptionDiv div label, #connexionDiv div label{
     display:block;
     margin-top: 10px;
 }
