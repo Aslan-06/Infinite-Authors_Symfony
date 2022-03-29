@@ -53,4 +53,10 @@ class AuthentificationController extends AbstractController
             'error' => $error
         ]);
     }
+
+    #[Route('/deconnexion', name: 'deconnexion', methods: ['GET'])]
+    public function logout()
+    {
+        // controller can be blank: it will never be called!
+    }
 }

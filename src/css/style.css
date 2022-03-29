@@ -23,11 +23,125 @@ header{
 
 
 /***  LISTE  DES  LIVRES  ***/
+#creationLivre{
+    max-width: 1140px;
+    margin: 50px auto 0px auto;
+    padding:10px 10px 1px 10px;
+    background-color: wheat;
+    border: 5px lightslategray double;
+    border-radius: 5px;
+    display: block;
+}#creationLivre h3{
+    width: max-content;
+    margin-top: 9px;
+    vertical-align: bottom;
+    display: inline-block;
+}
+#creerLivreBtn{
+    padding: 0px 10px 0px 3px;
+    cursor: pointer;
+    background-color: burlywood;
+    border: 1px gray solid;
+    border-radius: 5px;
+    float: right;
+}
+#newLivreIcon{
+    width: 40px;
+}
+#newLivreIconSpan{
+    vertical-align: top;
+    font-size: 16px;
+    display: inline-block;
+    margin-top: 13px;
+    font-weight: 600;
+}
+/*
+<div id="livreCreationFormDiv">
+    <form id="newLivreForm">
+        <label class="labelNewLivreForm" for="titre">Titre : </label>
+        <input id="titreNewLivre" type="text" name="titre">
+        <label class="labelNewLivreForm" for="image">Image : </label>
+        <input id="lienImageNewLivre" type="text" name="image">
+        <button id="creerLivreBtn">
+            <img id="validerNewLivreIcon" src="/InfiniteAuthors/src/img/new-book.png">
+            <span id="validerNewLivreIconSpan">Valider</span>
+        </button>
+    </form>
+</div>
+*/
+/***********************************************/
+#livreCreationFormDiv{
+    max-width: 1150px;
+    margin: auto;
+    margin-top: 10px;
+    padding: 0px 0px 10px 10px;
+    background-color:wheat;
+    border: 5px lightslategray double;
+    border-top: 2px lightslategray solid;
+    border-radius: 5px;
+    display: none;
+}
+#closeNewLivreForm{
+    width:15px;
+    float: right;
+    margin-top: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+#newLivreForm div{
+    margin: 15px 50px 0px 30px;
+}
+.newLivreFormInputs{
+    width: 100%;
+}
+.labelNewLivreForm{
+    display: block;
+}
+#labelNewLivreFormImage{
+    margin-top: 15px;
+}
+
+#imageNewLivre{
+    width:160px;
+    height:240px;
+    margin: 15px 0px 0px 30px;
+    border: 1px darkolivegreen solid;
+}
+/*
+<button id="validerLivreBtn">
+                    <img id="validerNewLivreIcon" src="/InfiniteAuthors/src/img/new-book.png">
+                    <span id="validerNewLivreIconSpan">Valider</span>
+                </button>*/
+#validerLivreBtn{
+    padding: 4px 15px 0px 5px;
+    background-color: burlywood;
+    border: 1px gray solid;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    margin-top:218px;
+    margin-right: 15px;
+}
+#validerNewLivreIcon{
+    width: 30px;
+}
+#validerNewLivreIconSpan{
+    display: inline-block;
+    vertical-align: top;
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 7px;
+    margin-left: 5px;
+}
+/****************************************/
+
 #livresSection{
     max-width: 1140px;
     margin: 50px auto;
     padding: 0px 0px 50px 45px; 
     background-color: wheat;
+    border: 1px grey solid;
+    border-radius: 10px;
 }
 .livre{
     display: inline-block;
@@ -58,9 +172,8 @@ header{
 /***  AUTHENTIFICATION  ***/
 #inscriptionDiv, #connexionDiv{
     max-width: max-content;
-    padding:0px 50px 25px 50px;
+    padding:0px 50px 75px 50px;
     margin:50px auto;
-    display: inline-block;
     background-color: wheat;
     border: 1px gray solid;
     border-radius: 5px;
@@ -68,10 +181,10 @@ header{
     text-align:center;
 }#inscriptionDiv div label, #connexionDiv div label{
     display:block;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 .authentificationBtn{
-    margin-top: 10px;
+    margin-top: 30px;
     padding:5px 10px;
     font-weight: bold;
     float:right;
@@ -79,6 +192,16 @@ header{
     border: 1px bisque solid;
     border-radius: 5px;
     cursor:pointer;
+}
+#connexionErrorMessage{
+    max-width : max-content;
+    padding : 7px;
+    margin : auto;
+    font-size : 13px;
+    background-color:#FFA8AC;
+    color: #842034;
+    border : 1px #FD7071 solid;
+    border-radius : 5px;
 }
 
 

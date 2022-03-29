@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Section;
 
 /**
  * Texte
@@ -56,7 +55,7 @@ class Texte
         return $this;
     }
 
-    public function getIdsection()
+    public function getIdsection(): ?Section
     {
         return $this->idsection;
     }

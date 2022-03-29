@@ -2,6 +2,38 @@
 
 {% block body %}
 
+    {% if app.user %}
+        <div id="creationLivre">
+            <h3>Qu'attendez-vous pour créer votre propre livre tout de suite ? </h3>
+
+            <button id="creerLivreBtn">
+                <img id="newLivreIcon" src="/InfiniteAuthors/src/img/new-book.png">
+                <span id="newLivreIconSpan">Créer mon livre</span>
+            </button>
+        </div>
+
+        <div id="livreCreationFormDiv">
+            <img id="closeNewLivreForm" src="/InfiniteAuthors/src/img/closeIcon.png">
+            <form id="newLivreForm" action="{{ path('creationLivre') }}" method="post">
+                <div>
+                    <label class="labelNewLivreForm" for="titre">Titre de livre: </label>
+                    <input class="newLivreFormInputs" id="titreNewLivre" type="text" name="titre">
+                </div>
+                <div>
+                    <label id="labelNewLivreFormImage" class="labelNewLivreForm" for="image">Image (lien) : </label>
+                    <input class="newLivreFormInputs" id="lienImageNewLivre" type="text" name="image">
+                </div>
+                
+                <img id="imageNewLivre" src="/InfiniteAuthors/src/img/image.png">
+
+                <button id="validerLivreBtn" type="submit">
+                    <img id="validerNewLivreIcon" src="/InfiniteAuthors/src/img/new-book.png">
+                    <span id="validerNewLivreIconSpan">Valider</span>
+                </button>
+            </form>
+        </div>
+    {% endif %}
+
     <section id="livresSection">
         {% for livre in livres %}
             <div class="livre">

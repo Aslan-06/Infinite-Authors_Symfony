@@ -2,14 +2,16 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Livre;
+use App\Entity\Texte;
+use App\Entity\Section;
+use App\Entity\Utilisateur;
+use App\Form\ContenuPageFormType; 
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\Persistence\ManagerRegistry;
-use App\Entity\Livre;
-use App\Entity\Section;
-use App\Entity\Texte;
-use App\Form\ContenuPageFormType; 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class SiteController extends AbstractController
 {
@@ -29,6 +31,24 @@ class SiteController extends AbstractController
         return $this->render('livre/livres.html.twig', [
             'livres' => $livres,
         ]);
+    }
+
+    #[Route('livres/creerLivre', name: 'creationLivre')]
+    public function creerLivre(ManagerRegistry $doctrine): Response{
+        $utilisateur = $this->getUser();
+        if(isset($_POST['titre']) && isset($_POST['image'])){
+            $entityManager = $doctrine->getManager();
+
+            $livre = new Livre();
+            $livre->setTitre($_POST['titre']);
+            $livre->setImagelien($_POST['image']);
+            $livre->setAuteur($utilisateur);
+            
+            $entityManager->persist($livre);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('tableDesMatieres', ['idLivre' => $livre->getId()]);
+        }
     }
 
     #[Route('livres/{idLivre}', name: 'tableDesMatieres')]

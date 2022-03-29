@@ -1,17 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div id="authentificationDivs">
-        <div id="inscriptionDiv">
-            <h1>Inscription</h1>
-            {{ form_start(formInscription) }}
-            {{ form_widget(formInscription) }}
-            <button type="submit" id="sInscrireBtn" class="authentificationBtn">S'inscrire</button>
-            {{ form_end(formInscription) }}
-        </div>
+    <div id="inscriptionDiv">
+        <h1>Inscription</h1>
+        {{ form_start(formInscription) }}
+        {{ form_widget(formInscription) }}
+        <button type="submit" id="sInscrireBtn" class="authentificationBtn">S'inscrire</button>
+        {{ form_end(formInscription) }}
     </div>
-
-    {% block javascripts %}
-        <script type="text/javascript" src="/InfiniteAuthors/src/js/authentification.js"></script>
-    {% endblock %}
 {% endblock %}

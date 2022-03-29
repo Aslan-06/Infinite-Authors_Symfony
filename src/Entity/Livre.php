@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Livre
  *
- * @ORM\Table(name="livre")
+ * @ORM\Table(name="livre", indexes={@ORM\Index(name="fk_constraint_Auteur_Utilisateur", columns={"Auteur"})})
  * @ORM\Entity
  */
 class Livre
@@ -29,13 +29,6 @@ class Livre
     private $titre;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="Auteur", type="string", length=255, nullable=false)
-     */
-    private $auteur;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="dateCreation", type="date", nullable=false)
@@ -48,6 +41,16 @@ class Livre
      * @ORM\Column(name="imageLien", type="string", length=255, nullable=true)
      */
     private $imagelien;
+
+    /**
+     * @var \Utilisateur
+     *
+     * @ORM\ManyToOne(targetEntity="Utilisateur")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Auteur", referencedColumnName="id")
+     * })
+     */
+    private $auteur;
 
     public function getId(): ?int
     {
@@ -62,18 +65,6 @@ class Livre
     public function setTitre(string $titre): self
     {
         $this->titre = $titre;
-
-        return $this;
-    }
-
-    public function getAuteur(): ?string
-    {
-        return $this->auteur;
-    }
-
-    public function setAuteur(string $auteur): self
-    {
-        $this->auteur = $auteur;
 
         return $this;
     }
@@ -98,6 +89,18 @@ class Livre
     public function setImagelien(?string $imagelien): self
     {
         $this->imagelien = $imagelien;
+
+        return $this;
+    }
+
+    public function getAuteur(): ?Utilisateur
+    {
+        return $this->auteur;
+    }
+
+    public function setAuteur(?Utilisateur $auteur): self
+    {
+        $this->auteur = $auteur;
 
         return $this;
     }
