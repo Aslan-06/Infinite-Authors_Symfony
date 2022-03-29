@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
+use App\Entity\Livre;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Section
  *
- * @ORM\Table(name="section", indexes={@ORM\Index(name="FK_Section_id_Livre", columns={"idLivre"})})
+ * @ORM\Table(name="section", indexes={@ORM\Index(name="fk-constraint_livre", columns={"Livre"})})
  * @ORM\Entity
  */
 class Section
@@ -43,11 +44,14 @@ class Section
     private $niveau = 1;
 
     /**
-     * @var int
+     * @var \Livre
      *
-     * @ORM\Column(name="idLivre", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Livre")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Livre", referencedColumnName="id")
+     * })
      */
-    private $idlivre;
+    private $livre;
 
     public function getId(): ?int
     {
@@ -90,14 +94,14 @@ class Section
         return $this;
     }
 
-    public function getIdlivre(): ?int
+    public function getLivre(): ?Livre
     {
-        return $this->idlivre;
+        return $this->livre;
     }
 
-    public function setIdlivre(int $idlivre): self
+    public function setLivre(?Livre $livre): self
     {
-        $this->idlivre = $idlivre;
+        $this->livre = $livre;
 
         return $this;
     }

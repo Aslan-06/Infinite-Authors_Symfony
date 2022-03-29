@@ -51,16 +51,16 @@ class SiteController extends AbstractController
         }
     }
 
-    #[Route('livres/{idLivre}', name: 'tableDesMatieres')]
-    public function tableDesMatieres(ManagerRegistry $doctrine, $idLivre): Response{
-        $sections = $doctrine->getRepository(Section::class)->findBy(array("idlivre" => $idLivre), array("numsequence" => "asc"));
+    #[Route('livres/{livre}', name: 'tableDesMatieres')]
+    public function tableDesMatieres(ManagerRegistry $doctrine, Livre $livre): Response{
+        $sections = $doctrine->getRepository(Section::class)->findBy(array("livre" => $livre), array("numsequence" => "asc"));
 
         //POST n'est pas vide si cette fonction sera executé par mode en ajax en cas de creation d'une section
         if(!empty($_POST)){
             extract($_POST);
             if(!empty($titreSection)){ // Le titre de nouvel section n'est pas vide
                 //Augmentation de 1 de numDeSequence de ceux qui doivent etre apres la nouvelle section
-                $sections = $doctrine->getRepository(Section::class)->findBy(array("idlivre" => $idLivre), array("numsequence" => "asc"), 500, $numSequence - 1);
+                $sections = $doctrine->getRepository(Section::class)->findBy(array("livre" => $livre), array("numsequence" => "asc"), 500, $numSequence - 1);
                 foreach($sections as $section){
                     $section->setNumsequence($section->getNumsequence() + 1);
                 }
@@ -71,7 +71,7 @@ class SiteController extends AbstractController
                 $section->setTitre($titreSection);
                 $section->setNumsequence($numSequence);
                 $section->setNiveau($niveau);
-                $section->setIdlivre($idLivre);
+                $section->setlivre($livre);
                 
                 $entityManager->persist($section);
                 $entityManager->flush();
@@ -83,14 +83,14 @@ class SiteController extends AbstractController
         ]);
     }
 
-    #[Route('livres/{idLivre}/{idSection}', name: 'page')]
-    public function page(ManagerRegistry $doctrine, $idLivre, $idSection): Response{
+    #[Route('livres/{livre}/{idSection}', name: 'page')]
+    public function page(ManagerRegistry $doctrine, Livre $livre, $idSection): Response{
         $sectionsRoute = array();
 
         $section = $doctrine->getRepository(Section::class)->find($idSection);
         $niveau = $section->getNiveau() + 1;
         $numSequence = $section->getNumsequence();
-        $fromFirstToCurrentSections = $doctrine->getRepository(Section::class)->findBy(array("idlivre" => $idLivre), array("numsequence" => "asc"), $numSequence);
+        $fromFirstToCurrentSections = $doctrine->getRepository(Section::class)->findBy(array("livre" => $livre), array("numsequence" => "asc"), $numSequence);
         $compteurInverse = count($fromFirstToCurrentSections) - 1;
         do{
             if($fromFirstToCurrentSections[$compteurInverse]->getNiveau() < $niveau){
@@ -111,7 +111,7 @@ class SiteController extends AbstractController
             'sectionsRoute' => $sectionsRoute,
             'contenu' => $contenu,
             'formContenuPage' => $formContenuPage->createView(),
-            'idLivre' => $idLivre
+            'livre' => $livre
         ]);
     }
     

@@ -6,23 +6,28 @@
         <h1>Table des matières</h1>
         {% for section in sections %}
             <div class="section">
-                <a href="{{ path('page', {'idLivre':section.idLivre, 'idSection': section.id}) }}">
+                <a href="{{ path('page', {'livre':section.livre.id, 'idSection': section.id}) }}">
                     <h4 class="titreSection niveau{{section.niveau - 1}}">{{section.titre}}</h4>
                 </a>
+                {% if app.user and app.user == section.getLivre().getAuteur() %}
                 <a class="newSousSection" href="">
                     <img class="newSousSectionIcon" src="/InfiniteAuthors/src/img/plusIcon.png">
                     <span class="ssectionIconSpan">Sous-section</span>
                 </a>
+                {% endif %}
                 <p class="tirets"></p>
             </div>
         {% endfor %}
-        <div id="creationSection">
-            <h3 id="creationSectionTitre">Créer une section</h3>
-            <a id="newSection" href="">
-                <img id="newSectionIcon" src="/InfiniteAuthors/src/img/plusIcon.png">
-                <span class="sectionIconSpan">Section</span>
-            </a>
-        </div>
+
+        {% if app.user and app.user == section.getLivre().getAuteur() %}
+            <div id="creationSection">
+                <h3 id="creationSectionTitre">Créer une section</h3>
+                <a id="newSection" href="">
+                    <img id="newSectionIcon" src="/InfiniteAuthors/src/img/plusIcon.png">
+                    <span class="sectionIconSpan">Section</span>
+                </a>
+            </div>
+        {% endif %}
     </div>
 
     {% block javascripts %}
