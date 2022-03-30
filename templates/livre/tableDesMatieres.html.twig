@@ -19,7 +19,7 @@
             </div>
         {% endfor %}
 
-        {% if app.user and app.user == section.getLivre().getAuteur() %}
+        {% if app.user and app.user == sections[0].getLivre().getAuteur() %}
             <div id="creationSection">
                 <h3 id="creationSectionTitre">Créer une section</h3>
                 <a id="newSection" href="">

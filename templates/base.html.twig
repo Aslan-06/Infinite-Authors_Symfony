@@ -17,6 +17,12 @@
         <header>
             <a href= {{ path("") }}>HOME</a>
             <a href= {{ path("livres") }}>Livres</a>
+            <a href= {{ path("inscription") }}>Inscription</a>
+            {% if not app.user %}
+                <a href= {{ path("connexion") }}>Connexion</a>
+            {% else %}
+                <a href= {{ path("deconnexion") }}>Déconnexion</a>
+            {% endif %}
         </header>
         {% block body %}
             {% block javascripts %}

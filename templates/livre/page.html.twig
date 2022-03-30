@@ -2,7 +2,7 @@
 
 {% block body %}
 
-    <section id="gestionLivre">
+    <section id="gestionPageLivre">
         <div id="sectionCourantDiv">
             <h5 id="sectionCourantH">Section courant</h5>
             {% for section in sectionsRoute %}
@@ -17,14 +17,36 @@
                 <a id="premierRetourAuMatieres" href="{{ path('tableDesMatieres', {'livre':livre.id}) }}">Table des matières</a>
             </div>
         </div>
+        <section id="gestionPage">
+            <div id="pageContenu">
+                <div id="affichageContenu">
+                    {{ contenu }}
+                </div>
+                <div id="modificationContenu">
+                    {{ form_start(formContenuPage) }}
+                    {{ form_row(formContenuPage.contenu)}}
+                        <button id="enregistrerContenuBtn" class="changementContenuBtn">
+                            <img class="changementContenuIcon" src="/InfiniteAuthors/src/img/enregistrer.png">
+                            <span class="changementContenuSpan">Enregistrer</span>
+                        </button>
+                    {{ form_end(formContenuPage) }}
+                </div>
+                {% if app.user and app.user == livre.getAuteur() %}
+                    <button id="modifierContenuBtn" class="changementContenuBtn">
+                        <img class="changementContenuIcon" src="/InfiniteAuthors/src/img/modifier.png">
+                        <span class="changementContenuSpan">Modifier</span>
+                    </button>
+                {% endif %}
+            </div>
+        </section>
 
-        <div id="pageContenu">
-            {{ form(formContenuPage) }}
-            <button>Sauvegarder</button>
+        <div id="gestionPages">
+
         </div>
     </section>
 
     {% block javascripts %}
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script type="text/javascript" src="/InfiniteAuthors/src/js/page.js"></script>
     {% endblock %}
 

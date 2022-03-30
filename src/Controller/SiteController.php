@@ -7,6 +7,7 @@ use App\Entity\Texte;
 use App\Entity\Section;
 use App\Entity\Utilisateur;
 use App\Form\ContenuPageFormType; 
+use Symfony\Component\Form\FormView;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,7 +48,7 @@ class SiteController extends AbstractController
             $entityManager->persist($livre);
             $entityManager->flush();
 
-            return $this->redirectToRoute('tableDesMatieres', ['idLivre' => $livre->getId()]);
+            return $this->redirectToRoute('tableDesMatieres', ['livre' => $livre->getId()]);
         }
     }
 
@@ -75,6 +76,13 @@ class SiteController extends AbstractController
                 
                 $entityManager->persist($section);
                 $entityManager->flush();
+
+                $contenuPage = new Texte();
+                $contenuPage->setContenu("");
+                $contenuPage->setIdsection($section);
+
+                $entityManager->persist($contenuPage);
+                $entityManager->flush();
             }
         }
         
@@ -85,9 +93,23 @@ class SiteController extends AbstractController
 
     #[Route('livres/{livre}/{idSection}', name: 'page')]
     public function page(ManagerRegistry $doctrine, Livre $livre, $idSection): Response{
+        $section = $doctrine->getRepository(Section::class)->find($idSection);
+        $textes = $doctrine->getRepository(Texte::class)->findBy(array("idsection" => $section));
+        $texte = $textes[0]; //on en a toujours 1, (toujours 1 element dans array retourné)
+    
+        if(isset($_POST['contenu_page_form']['contenu'])){
+            $entityManager = $doctrine->getManager();
+
+            $texte->setContenu($_POST['contenu_page_form']['contenu']);
+
+            $entityManager->persist($texte);
+            $entityManager->flush();
+
+            unset($_POST['contenu_page_form']);
+        }
+
         $sectionsRoute = array();
 
-        $section = $doctrine->getRepository(Section::class)->find($idSection);
         $niveau = $section->getNiveau() + 1;
         $numSequence = $section->getNumsequence();
         $fromFirstToCurrentSections = $doctrine->getRepository(Section::class)->findBy(array("livre" => $livre), array("numsequence" => "asc"), $numSequence);
@@ -102,10 +124,9 @@ class SiteController extends AbstractController
             $compteurInverse--;
         }while($compteurInverse >= 0);
 
-        $contenu = $doctrine->getRepository(Texte::class)->find($idSection);
-
-        $contenuPage = new Texte();
-        $formContenuPage = $this->createForm(ContenuPageFormType::class, $contenuPage);
+        
+        $contenu = strip_tags($texte->getContenu());
+        $formContenuPage = $this->createForm(ContenuPageFormType::class, $texte);
 
         return $this->render('livre/page.html.twig', [
             'sectionsRoute' => $sectionsRoute,
@@ -114,5 +135,4 @@ class SiteController extends AbstractController
             'livre' => $livre
         ]);
     }
-    
 }

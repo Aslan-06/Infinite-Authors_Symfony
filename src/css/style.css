@@ -55,20 +55,7 @@ header{
     margin-top: 13px;
     font-weight: 600;
 }
-/*
-<div id="livreCreationFormDiv">
-    <form id="newLivreForm">
-        <label class="labelNewLivreForm" for="titre">Titre : </label>
-        <input id="titreNewLivre" type="text" name="titre">
-        <label class="labelNewLivreForm" for="image">Image : </label>
-        <input id="lienImageNewLivre" type="text" name="image">
-        <button id="creerLivreBtn">
-            <img id="validerNewLivreIcon" src="/InfiniteAuthors/src/img/new-book.png">
-            <span id="validerNewLivreIconSpan">Valider</span>
-        </button>
-    </form>
-</div>
-*/
+
 /***********************************************/
 #livreCreationFormDiv{
     max-width: 1150px;
@@ -107,11 +94,7 @@ header{
     margin: 15px 0px 0px 30px;
     border: 1px darkolivegreen solid;
 }
-/*
-<button id="validerLivreBtn">
-                    <img id="validerNewLivreIcon" src="/InfiniteAuthors/src/img/new-book.png">
-                    <span id="validerNewLivreIconSpan">Valider</span>
-                </button>*/
+
 #validerLivreBtn{
     padding: 4px 15px 0px 5px;
     background-color: burlywood;
@@ -306,7 +289,7 @@ header{
 }
 
 /***  CONTENU  DE  LIVRE  ***/
-#gestionLivre{
+#gestionPageLivre{
     max-width:max-content;
     margin:50px auto;
     margin-bottom: 50px;
@@ -339,4 +322,36 @@ header{
     display: inline-block;
     background-color: wheat;
     border-radius: 10px;
+}
+
+#paragrapheContenu{
+    margin: 0;
+}
+
+/********************************************/
+#affichageContenu p{
+    display: block;
+}
+#modificationContenu{
+    display: none;
+}
+.changementContenuBtn{
+    margin-top: 15px;
+    padding: 4px 10px 0px 10px;
+    float:right;
+    background-color: burlywood;
+    border: 1px bisque solid;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.changementContenuIcon{
+    width:30px;
+}
+.changementContenuSpan{
+    font-weight: 600;
+    font-size: 15px;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 3px;
+    margin-top: 8px;
 }
